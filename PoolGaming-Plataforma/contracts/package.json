@@ -1,0 +1,15 @@
+{
+  "name": "poolgaming-contracts",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run deploy.js --network hardhat"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "ethereum-waffle": "^3.4.0",
+    "chai": "^4.3.4",
+    "hardhat": "^2.17.0",
+    "@openzeppelin/contracts": "^4.9.0"
+  }
+}
