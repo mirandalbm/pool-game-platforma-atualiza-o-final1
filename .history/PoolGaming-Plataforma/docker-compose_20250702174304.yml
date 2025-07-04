@@ -1,37 +1,40 @@
-
 version: '3.8'
 services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend:/app
     environment:
       - NODE_ENV=development
-    restart: unless-stopped
 
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     ports:
       - "4000:4000"
+    volumes:
+      - ./backend:/app
     environment:
       - NODE_ENV=development
       - MONGO_URI=mongodb://mongo:27017/poolgaming
     depends_on:
       - mongo
-    restart: unless-stopped
 
-services:
   mongo:
-    image: mongo
+    image: mongo:6
     ports:
       - "27017:27017"
     volumes:
-      - ./backend/mongo-init:/docker-entrypoint-initdb.d
-    command: mongod --quiet --logpath /dev/null
+      - mongo-data:/data/db
+
+  leitor:
+    image: alpine:latest
+    command: ["cat", "/dados/arquivo.txt"]
+    volumes:
+      - ./dados:/dados
 
 volumes:
   mongo-data:

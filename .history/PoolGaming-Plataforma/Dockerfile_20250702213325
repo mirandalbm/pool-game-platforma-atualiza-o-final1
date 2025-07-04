@@ -5,8 +5,8 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
 
 # Copia apenas os arquivos de dependências para cache de build
-COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps
+COPY package.json package-lock.json* ./
+RUN npm install --legacy-peer-deps && npm install autoprefixer --save-dev
 
 # Copia o restante do código
 COPY . .

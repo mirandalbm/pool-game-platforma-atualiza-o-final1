@@ -3,6 +3,7 @@
         "ms-vscode.node-debug",
         "ms-vscode.node-debug2",
         "ms-vscode.node-debug",
-        "eg2.vscode-npm-script"
+        "eg2.vscode-npm-script",
+        "waderyan.nodejs-extension-pack"
     ]
 }

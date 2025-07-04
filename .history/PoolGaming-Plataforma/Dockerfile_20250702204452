@@ -1,22 +1,27 @@
+# Dockerfile para PoolGaming Plataforma
 FROM node:20-alpine
 
+# Cria usuário não-root
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /app
 
 # Copia apenas os arquivos de dependências para cache de build
-COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps
+COPY package.json package-lock.json* ./
+
+# Instala dependências (incluindo autoprefixer)
+RUN npm install --legacy-peer-deps && npm install autoprefixer --save-dev
 
 # Copia o restante do código
 COPY . .
 
+# Build do projeto
 RUN npm run build
 
+# Define usuário não-root para rodar a aplicação
 USER appuser
 
-EXPOSE 3000
-
+# Healthcheck (ajuste se necessário)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 

@@ -1,5 +1,4 @@
 
-version: '3.8'
 services:
   frontend:
     build:
@@ -24,14 +23,13 @@ services:
       - mongo
     restart: unless-stopped
 
-services:
   mongo:
-    image: mongo
+    image: mongo:6
     ports:
       - "27017:27017"
     volumes:
-      - ./backend/mongo-init:/docker-entrypoint-initdb.d
-    command: mongod --quiet --logpath /dev/null
+      - mongo-data:/data/db
+    restart: unless-stopped
 
 volumes:
   mongo-data:
